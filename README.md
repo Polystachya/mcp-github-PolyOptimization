@@ -1,5 +1,7 @@
 # GitHub MCP Server
 
+![English](README.md) ![简体中文](README_zh-cn.md)
+
 MCP Server for the GitHub API, enabling file operations, repository management, search functionality, and more.
 
 ## Mission Squad modifications
@@ -61,7 +63,7 @@ MCP Server for the GitHub API, enabling file operations, repository management, 
    - Inputs:
      - `owner` (string): Repository owner
      - `repo` (string): Repository name
-     - `path` (string): Path to file/directory
+     - `path` (string): File/directory path
      - `branch` (optional string): Branch to get contents from
    - Returns: File/directory contents
 
