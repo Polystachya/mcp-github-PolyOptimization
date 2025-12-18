@@ -1,12 +1,12 @@
 # GitHub MCP 服务器
 
-![English](README.md) ![简体中文](README_zh-cn.md)
+[English](README.md) | [简体中文](README_zh-cn.md)
 
 基于 GitHub API 的 MCP 服务器，支持文件操作、仓库管理、代码搜索等常用功能。
 
 ## Mission Squad 修改说明
 
-- GitHub PAT 现在支持请求级别动态传入，不再强制依赖环境变量（环境变量仍可用作后备方案）
+- GitHub PAT 现在支持请求级别动态传入，不再强制依赖环境变量（但环境变量仍可用作后备方案）
 - 服务名称：mcp-github
 
 ## 主要功能
@@ -68,11 +68,11 @@
 **参数说明：**
 - `name`（string）：仓库名称
 - `description`（可选，string）：仓库描述
-- `private`（可选，boolean）：是否设为私有仓库
+- `private`（可选，boolean）：是否设为私有
 - `autoInit`（可选，boolean）：是否自动创建 README
 
 **返回结果：**
-新建仓库的详细信息
+新建仓库详情
 
 ### 5. get_file_contents
 
@@ -89,7 +89,7 @@
 
 ### 6. create_issue
 
-创建新 Issue
+发起新 Issue
 
 **参数说明：**
 - `owner`（string）：仓库所有者
@@ -101,36 +101,36 @@
 - `milestone`（可选，number）：关联的里程碑编号
 
 **返回结果：**
-新建 Issue 的详细信息
+Issue 详情
 
 ### 7. create_pull_request
 
-创建 Pull Request
+发起 Pull Request
 
 **参数说明：**
 - `owner`（string）：仓库所有者
 - `repo`（string）：仓库名称
 - `title`（string）：PR 标题
 - `body`（可选，string）：PR 描述
-- `head`（string）：来源分支（包含改动的分支）
-- `base`（string）：目标分支（要合并到的分支）
-- `draft`（可选，boolean）：是否创建为草稿 PR
+- `head`（string）：来源分支（改动所在分支）
+- `base`（string）：目标分支（要合并到的分支，通常为主分支）
+- `draft`（可选，boolean）：是否创建为草稿
 - `maintainer_can_modify`（可选，boolean）：是否允许维护者修改
 
 **返回结果：**
-新建 PR 的详细信息
+PR 详情
 
 ### 8. fork_repository
 
-复刻仓库
+fork仓库
 
 **参数说明：**
 - `owner`（string）：原仓库所有者
 - `repo`（string）：原仓库名称
-- `organization`（可选，string）：要复刻到的组织
+- `organization`（可选，string）：要fork到的组织
 
 **返回结果：**
-复刻后的仓库信息
+fork仓库信息
 
 ### 9. create_branch
 
@@ -143,7 +143,7 @@
 - `from_branch`（可选，string）：源分支，默认使用仓库默认分支
 
 **返回结果：**
-新建分支的信息
+新建分支详情
 
 ### 10. list_issues
 
@@ -179,7 +179,7 @@ Issue 列表
 - `milestone`（可选，number）：新里程碑编号
 
 **返回结果：**
-更新后的 Issue 信息
+更新后的 Issue 详情
 
 ### 12. add_issue_comment
 
@@ -192,7 +192,7 @@ Issue 列表
 - `body`（string）：评论内容
 
 **返回结果：**
-新建评论的信息
+新建评论详情
 
 ### 13. search_code
 
@@ -316,8 +316,8 @@ PR 列表
 - `owner`（string）：仓库所有者
 - `repo`（string）：仓库名称
 - `pull_number`（number）：PR 编号
-- `commit_title`（可选，string）：合并提交的标题
-- `commit_message`（可选，string）：合并提交的补充信息
+- `commit_title`（可选，string）：PR标题
+- `commit_message`（可选，string）：补充信息
 - `merge_method`（可选，string）：合并方式（merge、squash、rebase）
 
 **返回结果：**
@@ -333,7 +333,7 @@ PR 列表
 - `pull_number`（number）：PR 编号
 
 **返回结果：**
-变更文件列表，包括差异和状态
+变更文件列表，包括diff和status
 
 ### 23. get_pull_request_status
 
@@ -345,7 +345,7 @@ PR 列表
 - `pull_number`（number）：PR 编号
 
 **返回结果：**
-状态检查汇总和各检查项详情
+结果汇总及各检查项详情
 
 ### 24. update_pull_request_branch
 
@@ -355,8 +355,7 @@ PR 列表
 - `owner`（string）：仓库所有者
 - `repo`（string）：仓库名称
 - `pull_number`（number）：PR 编号
-- `expected_head_sha`（可选，string）：期望的 PR 头部 SHA
-
+- `expected_head_sha`（可选，string）：Head 指向的提交哈希（防止并发冲突）
 **返回结果：**
 更新成功信息
 
@@ -406,7 +405,9 @@ PR 列表
 - `location:London`：按地区搜索
 - 示例：`q: "fullstack developer" location:London followers:>100`
 
-详细语法参考 [GitHub 搜索文档](https://docs.github.com/en/search-github/searching-on-github)。
+更多搜索语法请查看 [GitHub 官方文档](https://docs.github.com/zh/search-github/searching-on-github)
+或参阅 [GitHub 官方文档(英文)](https://docs.github.com/en/search-github/searching-on-github)
+
 
 ## 配置和使用
 
@@ -436,7 +437,7 @@ PR 列表
         "mcp/github"
       ],
       "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "<你的令牌>"
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "PAT，修改为你的访问令牌"
       }
     }
   }
@@ -455,7 +456,7 @@ PR 列表
         "@modelcontextprotocol/server-github"
       ],
       "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "<你的令牌>"
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "修改为你的PAT"
       }
     }
   }
@@ -470,4 +471,4 @@ docker build -t mcp/github -f src/github/Dockerfile .
 
 ## 许可证
 
-基于 MIT 许可证开源，详情见项目中的 LICENSE 文件。
+基于 MIT 许可证开源，详见项目中的 [LICENSE](LICENSE) 文件
