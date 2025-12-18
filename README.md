@@ -1,6 +1,6 @@
 # GitHub MCP Server
 
-![English](README.md) ![简体中文](README_zh-cn.md)
+[English](README.md) |[简体中文](README_zh-cn.md)
 
 MCP Server for the GitHub API, enabling file operations, repository management, search functionality, and more.
 
